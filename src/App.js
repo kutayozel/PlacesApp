@@ -11,7 +11,7 @@ const urlCities = " http://api.geonames.org/citiesJSON?north=44.1&south=-9.9&eas
 const urlWeather = "api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={870b95f2bb8683ce42ac8b331664622b}"
 
 function App() {
-  const [imageList, setImageList] = React.useState({})
+  const [imageList, setImageList] = React.useState([])
   const [searchTerm, setSearchTerm] = React.useState('a')
 
   const getThePhotos = async() => {
@@ -65,17 +65,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-// {
-//   geonames:[
-//     {
-  // lng:assaas,
-  // id:assasa
-//     }
-//   ]
-// }
