@@ -1,30 +1,41 @@
 import React, {useState, useContext, useEffect} from 'react'
 import { useCallback } from 'react'
 
-const url = 'http://api.geonames.org/postalCodeSearchJSON?placename=Turkey&maxRows=100&username=kutayozel'
+const url = 'http://api.geonames.org/searchJSON?maxRows=100&username=kutayozel&q='
 const AppContext = React.createContext()
 
 const AppProvider = ({children}) => {
     const [location, setLocation] = useState([])
-    const [searchTerm, setSearchTerm] = React.useState('a')
+    const [searchTerm, setSearchTerm] = useState('ankara')
 
     const fetchGeoData = useCallback(async () => {
         try{
             const response = await fetch (`${url}${searchTerm}`)
             const data = await response.json()
             // console.log(data)
-            const {postalCodes} = data;
-            const newGeoData = postalCodes.map((item) =>{
-                const {adminName1, placeName} = item
-                return {country: adminName1, placeName:placeName}
+            const {geonames} = data;
+            const newGeoData = geonames.map((item) =>{
+                const { 
+                    name, 
+                    lat, 
+                    lng, 
+                    geonameId,
+                    population
+                } = item
+                return { 
+                    name:name,
+                    lat:lat,
+                    lng:lng,
+                    geonameId:geonameId,
+                    population:population,
+                }
             })
             setLocation(newGeoData)
         } catch(error){
             console.log(error)
         }
             
-        },
-        [searchTerm])
+    },[searchTerm])
 
     useEffect(()=>{
         fetchGeoData()

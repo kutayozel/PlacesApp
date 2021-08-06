@@ -5,7 +5,10 @@ export default function LocationList(){
     const {location} = useGlobalContext()
     return(
         <div>
-            {location}
+            {location.map((item)=>{
+                const {name} =item
+                return <div>{name}</div>
+            })}
         </div>
     )
 }
