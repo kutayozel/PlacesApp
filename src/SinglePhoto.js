@@ -13,11 +13,11 @@ export default function SinglePhoto(){
                 </Link>
             </div>
             <div className="infos">
-                <h2>Name</h2>
-                <h4>Pop</h4>
-                <h4>Temp</h4>
-                <h4>Lat</h4>
-                <h4>Ing</h4>
+                <h2>Name: </h2>
+                <h4>Pop: </h4>
+                <h4>Temp: </h4>
+                <h4>Lat: </h4>
+                <h4>Ing: </h4>
             </div>
         </div>
     )

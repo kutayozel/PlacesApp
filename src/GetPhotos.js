@@ -1,32 +1,51 @@
 import React from "react";
-import { useFetch } from "./useFetch";
+import { Link } from "react-router-dom";
 
-const url ='https://pixabay.com/api/?key=22675015-65668441eb8a404353873b15e&q=yellow+flowers&image_type=photo&pretty=true'
+const urlPix = "https://pixabay.com/api/?key=22675015-65668441eb8a404353873b15e&q=cities&image_type=photo&per_page=100"
 
 export default function GetPhotos(){
-    const [photos, setPhotos] = ([]);
-    const {data} = useFetch(url)
+    const [image, setImage] = React.useState(null)
+    // const [check, setCheck] = React.useState()
 
-    // console.log(data)
-    // console.log('test1',hits[1].id)
-    // console.log(hits[])
-    // console.log(hits)
-    // const newData = hits.map((item)=>{
-    //     const{id, tags, previewURL} = item
-    //     return {id, tags ,previewURL}
-    // })
-    // setPhotos(newData)
+    React.useEffect(() =>{
+        async function getImages() {
+            const response = await fetch(urlPix)
+            const data = await response.json()
 
-    return(
-        <section>
-            < div className="image">
-                {/* <img key={id} src={previewURL} alt="" /> */}
-                {/* {data.hits.map((item) => {
-                    return <img key={item.id} src={item.previewURL} alt="" />
-                })} */}
-                image
-            </div>
-            <h2>name</h2>
-        </section>
-    )
+            if(data.hits){
+                const{
+                    id,
+                    previewURL,
+                    tags,
+                } = data.hits[0]
+                const newImages = {
+                    id,
+                    previewURL,
+                    tags,
+                }
+                setImage(newImages)
+            } else {
+                setImage(null)
+            }
+        }
+        getImages()
+    }, [])
+
+    if(!image){
+        return <h1>No Photo to Display</h1>
+    } else{
+        const{
+            id,
+            previewURL,
+            tags
+        } = image
+        return (
+            <Link key={id} to={`/photo/}`}>
+                <div className="image">
+                    <img src={previewURL} alt={tags} />
+                </div>
+                <h2>{tags}</h2>
+            </Link>
+        )
+    }
 }
