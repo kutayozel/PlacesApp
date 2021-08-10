@@ -7,7 +7,7 @@ const AppContext = React.createContext()
 
 const AppProvider = ({children}) => {
     const [location, setLocation] = useState([])
-    const [photos, setPhotos] = useState([])
+    // const [photos, setPhotos] = useState([])
     const [searchTerm, setSearchTerm] = useState('ankara')
 
     const fetchGeoData = useCallback(async () => {
@@ -17,30 +17,54 @@ const AppProvider = ({children}) => {
             const responsePix = await fetch (`${urlPix}${searchTerm}`)
             const dataPix = await responsePix.json()
             const {hits} = dataPix;
-            const newDataPix = hits.map((itemPix) =>{
-                const {id, largeImageURL} = itemPix
-                return {id:id, imageURL:largeImageURL}
-            })
-            setPhotos(newDataPix)
-            // console.log(data)
             const {geonames} = data;
-            const newGeoData = geonames.map((item) =>{
-                const { 
-                    name, 
-                    lat, 
-                    lng, 
+            const combineData = [...hits,...geonames];
+            const newData = combineData.map((item)=>{
+                const{
+                    id,
+                    largeImageURL,
+                    name,
+                    location,
+                    lng,
+                    lat,
                     geonameId,
                     population
                 } = item
-                return { 
+                return{
+                    id:id,
+                    imageURL:largeImageURL,
                     name:name,
-                    lat:lat,
+                    location:location,
                     lng:lng,
+                    lat:lat,
                     geonameId:geonameId,
-                    population:population,
+                    population:population
                 }
             })
-            setLocation(newGeoData)
+            setLocation(newData)
+            // const newDataPix = hits.map((itemPix) =>{
+            //     const {id, largeImageURL} = itemPix
+            //     return {id:id, imageURL:largeImageURL}
+            // })
+            // setPhotos(newDataPix)
+            // const {geonames} = data;
+            // const newGeoData = geonames.map((item) =>{
+            //     const { 
+            //         name, 
+            //         lat, 
+            //         lng, 
+            //         geonameId,
+            //         population
+            //     } = item
+            //     return { 
+            //         name:name,
+            //         lat:lat,
+            //         lng:lng,
+            //         geonameId:geonameId,
+            //         population:population,
+            //     }
+            // })
+            // setLocation(newGeoData)
         } catch(error){
             console.log(error)
         }
@@ -52,7 +76,7 @@ const AppProvider = ({children}) => {
     }, [searchTerm,fetchGeoData])
 
     return(
-        <AppContext.Provider value={{location, searchTerm, photos, setPhotos,setSearchTerm}}>
+        <AppContext.Provider value={{location, setLocation, searchTerm, setSearchTerm}}>
             {children}
         </AppContext.Provider>
     )

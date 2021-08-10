@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function LocationList({name,geonameId,id,imageURL}){
+export default function LocationList({name,geonameId,imageURL}){
 
     return(
         <div className="image-list">
