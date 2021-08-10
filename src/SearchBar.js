@@ -16,8 +16,8 @@ export default function SearchBar() {
     function handleSubmit(e) {
         e.preventDefault()
     }
-    console.log(searchTerm)
-    console.log(location)
+    // console.log(searchTerm)
+    // console.log(location)
 
     return(
         <section className="searchbar">

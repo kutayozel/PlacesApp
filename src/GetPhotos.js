@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const urlPix = "https://pixabay.com/api/?key=22675015-65668441eb8a404353873b15e&q=cities&image_type=photo&per_page=100"
 
-export default function GetPhotos(){
-    const [image, setImage] = React.useState(null)
+export default function GetPhotos({photos,setPhotos}){
+    const [image, setImage] = React.useState({})
     // const [check, setCheck] = React.useState()
 
     React.useEffect(() =>{
@@ -17,7 +17,7 @@ export default function GetPhotos(){
                     id,
                     previewURL,
                     tags,
-                } = data.hits[0]
+                } = data.hits
                 const newImages = {
                     id,
                     previewURL,

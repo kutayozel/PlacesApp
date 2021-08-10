@@ -1,14 +1,18 @@
 import React from 'react'
-import { useGlobalContext } from './Locations'
+import { Link } from 'react-router-dom'
 
-export default function LocationList(){
-    const {location} = useGlobalContext()
+export default function LocationList({name,geonameId,id,imageURL}){
+
     return(
-        <div>
-            {location.map((item)=>{
-                const {name} =item
-                return <div>{name}</div>
-            })}
+        <div className="image-list">
+            <div className = "image">
+                <Link to={`/photo/}`}>
+                    <img src={imageURL} alt="" />
+                    <h2>{name}</h2>
+                </Link>
+                
+            </div>
         </div>
     )
 }
+

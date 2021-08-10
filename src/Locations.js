@@ -1,17 +1,27 @@
 import React, {useState, useContext, useEffect} from 'react'
 import { useCallback } from 'react'
 
+const urlPix = 'https://pixabay.com/api/?key=22675015-65668441eb8a404353873b15e&image_type=photo&per_page=100&q='
 const url = 'http://api.geonames.org/searchJSON?maxRows=100&username=kutayozel&q='
 const AppContext = React.createContext()
 
 const AppProvider = ({children}) => {
     const [location, setLocation] = useState([])
+    const [photos, setPhotos] = useState([])
     const [searchTerm, setSearchTerm] = useState('ankara')
 
     const fetchGeoData = useCallback(async () => {
         try{
             const response = await fetch (`${url}${searchTerm}`)
             const data = await response.json()
+            const responsePix = await fetch (`${urlPix}${searchTerm}`)
+            const dataPix = await responsePix.json()
+            const {hits} = dataPix;
+            const newDataPix = hits.map((itemPix) =>{
+                const {id, largeImageURL} = itemPix
+                return {id:id, imageURL:largeImageURL}
+            })
+            setPhotos(newDataPix)
             // console.log(data)
             const {geonames} = data;
             const newGeoData = geonames.map((item) =>{
@@ -42,7 +52,7 @@ const AppProvider = ({children}) => {
     }, [searchTerm,fetchGeoData])
 
     return(
-        <AppContext.Provider value={{location, searchTerm, setSearchTerm}}>
+        <AppContext.Provider value={{location, searchTerm, photos, setPhotos,setSearchTerm}}>
             {children}
         </AppContext.Provider>
     )

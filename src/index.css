@@ -23,25 +23,25 @@ a {
 
 /*Image List*/
 
-.image-list {
+.section {
   display: flex;
-  width: 90%;
-  /* background: red; */
-  margin-top: 5vw;
   margin: auto;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.image-tab {
-  background: white;
-  height: 15vw;
-  width: 21vw;
-  margin-bottom: 3vw;
+.image-list {
+  margin-right: 4vw;
+  margin-left: 4vw;
+  justify-content: space-between;
+  height: 300px;
+  width: 300px;
+  margin-bottom: 6vw;
 }
 
 .image {
   height: 90%;
+  width: 90%;
 }
 
 .image img {
