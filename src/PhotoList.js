@@ -4,15 +4,16 @@ import LocationList from './LocationList';
 
 export default function PhotoList(){
     const {location} = useGlobalContext()
-    // const newFull = [...photos, ...location ]
-
+    console.log('test',location)
     return(
         
         <section className = 'section'>
             {location.map((item)=>{
-                return <LocationList key = {item.geonameId} {...item} />
+                return <LocationList key={item.id} {...item} />
             })}
         </section>
+
+        
         
         
         

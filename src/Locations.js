@@ -7,18 +7,32 @@ const AppContext = React.createContext()
 
 const AppProvider = ({children}) => {
     const [location, setLocation] = useState([])
-    // const [photos, setPhotos] = useState([])
     const [searchTerm, setSearchTerm] = useState('ankara')
 
     const fetchGeoData = useCallback(async () => {
         try{
-            const response = await fetch (`${url}${searchTerm}`)
-            const data = await response.json()
-            const responsePix = await fetch (`${urlPix}${searchTerm}`)
-            const dataPix = await responsePix.json()
-            const {hits} = dataPix;
-            const {geonames} = data;
-            const combineData = [...hits,...geonames];
+            let response = await fetch (`${url}${searchTerm}`)
+            let data = await response.json()
+            let responsePix = await fetch (`${urlPix}${searchTerm}`)
+            let dataPix = await responsePix.json()
+            let {geonames} = data;
+            let {hits} = dataPix;
+
+            geonames.forEach((item, i) =>{
+                item.newID = i + 1;
+            });
+            hits.forEach((item, i) =>{
+                item.newID = i + 1;
+            });
+
+             var combineData = hits.map((item,i) => {
+                if(item.newID === geonames[i].newID){
+                    return Object.assign({},item,geonames[i])
+                }
+            })
+        
+
+            
             const newData = combineData.map((item)=>{
                 const{
                     id,
@@ -42,29 +56,7 @@ const AppProvider = ({children}) => {
                 }
             })
             setLocation(newData)
-            // const newDataPix = hits.map((itemPix) =>{
-            //     const {id, largeImageURL} = itemPix
-            //     return {id:id, imageURL:largeImageURL}
-            // })
-            // setPhotos(newDataPix)
-            // const {geonames} = data;
-            // const newGeoData = geonames.map((item) =>{
-            //     const { 
-            //         name, 
-            //         lat, 
-            //         lng, 
-            //         geonameId,
-            //         population
-            //     } = item
-            //     return { 
-            //         name:name,
-            //         lat:lat,
-            //         lng:lng,
-            //         geonameId:geonameId,
-            //         population:population,
-            //     }
-            // })
-            // setLocation(newGeoData)
+
         } catch(error){
             console.log(error)
         }
