@@ -1,27 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useGlobalContext } from "./Locations";
 
-const urlPix = "https://pixabay.com/api/?key=22675015-65668441eb8a404353873b15e&q=cities&image_type=photo&per_page=100"
-
-export default function GetPhotos({photos,setPhotos}){
+export default function GetPhotos(){
     const [image, setImage] = React.useState({})
+    const {location} = useGlobalContext()
+    var {id} = useParams()
     // const [check, setCheck] = React.useState()
-
+    console.log(id)
+    var data = location.find(obj=>{
+        return obj.id == id
+    })
+    console.log(data)
+    
     React.useEffect(() =>{
-        async function getImages() {
-            const response = await fetch(urlPix)
-            const data = await response.json()
-
-            if(data.hits){
+        function getImages() {
+            // const response = await fetch(urlPix)
+            // const data = await response.json()
+            // const data = location.find(x => x.id === id)
+            // console.log('data',data)
+            if(location){
                 const{
-                    id,
-                    previewURL,
-                    tags,
-                } = data.hits
+                    name,
+                    population,
+                    lng,
+                    lat,
+                    imageURL,
+                } = location.find(obj=>{ return obj.id == id})
                 const newImages = {
-                    id,
-                    previewURL,
-                    tags,
+                    name,
+                    population,
+                    lng,
+                    lat,
+                    imageURL,
                 }
                 setImage(newImages)
             } else {
@@ -29,23 +40,28 @@ export default function GetPhotos({photos,setPhotos}){
             }
         }
         getImages()
-    }, [])
+    }, [id])
 
     if(!image){
         return <h1>No Photo to Display</h1>
     } else{
         const{
-            id,
-            previewURL,
-            tags
+            name,
+            imageURL,
+            population,
+            lng,
+            lat
         } = image
         return (
-            <Link key={id} to={`/photo/}`}>
+            <section>
                 <div className="image">
-                    <img src={previewURL} alt={tags} />
+                    <img src={imageURL} alt={name} />
                 </div>
-                <h2>{tags}</h2>
-            </Link>
+                <h2>Name: {name}</h2>
+                <h2>Population: {population}</h2>
+                <h2>lng: {lng}</h2>
+                <h2>lat: {lat}</h2>
+            </section>
         )
     }
 }

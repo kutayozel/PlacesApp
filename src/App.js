@@ -4,8 +4,8 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import SearchBar from './SearchBar';
 import SinglePhoto from './SinglePhoto'
 import PhotoList from './PhotoList';
+import GetPhotos from './GetPhotos';
 
-const urlWeather = "api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={870b95f2bb8683ce42ac8b331664622b}"
 
 function App() {
   return (
@@ -16,8 +16,9 @@ function App() {
             <SearchBar/>
             <PhotoList/>
           </Route>
-          <Route path="/photo">
-            <SinglePhoto/>
+          <Route path="/photo/:id">
+            <GetPhotos/>
+            {/* <SinglePhoto/> */}
           </Route>
         </Switch>
       </section>

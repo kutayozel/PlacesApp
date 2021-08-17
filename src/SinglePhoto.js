@@ -1,7 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 
-export default function SinglePhoto(){
+export default function SinglePhoto({name,imageURL,lng,lat}){
+    const {newID} = useParams()
 
     return(
         <div>
@@ -14,7 +15,7 @@ export default function SinglePhoto(){
                 </Link>
             </div>
             <div className="infos">
-                <h2>Name:</h2>
+                <h2>Name:{name} </h2>
                 <h4>Pop: </h4>
                 <h4>Temp:  </h4>
                 <h4>Lat: </h4>

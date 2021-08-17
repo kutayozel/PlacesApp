@@ -4,12 +4,12 @@ import LocationList from './LocationList';
 
 export default function PhotoList(){
     const {location} = useGlobalContext()
-    console.log('test',location)
+    // console.log('test',location)
     return(
         
         <section className = 'section'>
             {location.map((item)=>{
-                return <LocationList key={item.id} {...item} />
+                return <LocationList key={item.newID} {...item} />
             })}
         </section>
 
