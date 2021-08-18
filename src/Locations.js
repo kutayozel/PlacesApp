@@ -9,6 +9,7 @@ const AppContext = React.createContext()
 const AppProvider = ({children}) => {
     const [location, setLocation] = useState([])
     const [searchTerm, setSearchTerm] = useState('ankara')
+    const [temp, setTemp] = useState({})
 
     const fetchGeoData = useCallback(async () => {
         try{
@@ -24,15 +25,16 @@ const AppProvider = ({children}) => {
             // console.log('geonames',geonames)
             // console.log('hits',hits)
             console.log('main',main)
+            console.log('temp', main.temp)
 
             geonames.forEach((item, i) =>{
                 item.newID = i + 1;
             });
             hits.forEach((item, i) =>{
                 item.newID = i + 1;
-            });
+            });           
             // main.forEach((item, i) =>{
-            //     item.newID = i + 1;
+                // item.newID = i + 1;
             // });
             
             console.log('hits2',main)
@@ -44,7 +46,7 @@ const AppProvider = ({children}) => {
             })
         
             console.log('combineData',combineData)
-            
+            setTemp(main.temp)
             const newData = combineData.map((item)=>{
                 const{
                     id,
@@ -80,7 +82,7 @@ const AppProvider = ({children}) => {
     }, [searchTerm,fetchGeoData])
 
     return(
-        <AppContext.Provider value={{location, setLocation, searchTerm, setSearchTerm}}>
+        <AppContext.Provider value={{temp,location, setLocation, searchTerm, setSearchTerm}}>
             {children}
         </AppContext.Provider>
     )

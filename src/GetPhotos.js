@@ -4,7 +4,7 @@ import { useGlobalContext } from "./Locations";
 
 export default function GetPhotos(){
     const [image, setImage] = React.useState({})
-    const {location} = useGlobalContext()
+    const {location,temp} = useGlobalContext()
     var {id} = useParams()
     // const [check, setCheck] = React.useState()
     console.log(id)
@@ -61,6 +61,7 @@ export default function GetPhotos(){
                 <h2>Population: {population}</h2>
                 <h2>lng: {lng}</h2>
                 <h2>lat: {lat}</h2>
+                <h2>Temperature: {temp}</h2>
             </section>
         )
     }

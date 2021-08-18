@@ -26,6 +26,7 @@ export default function SearchBar() {
                     {/* <label htmlFor="name">search</label> */}
                     <input 
                         type="text" 
+                        placeholder="  Enter a Location Name"
                         // name='name'
                         id='name'
                         ref={searchValue}
