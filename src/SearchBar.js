@@ -1,8 +1,8 @@
 import React from 'react';
-import { useGlobalContext } from './Locations';
+import { useGlobalContext } from './context';
 
 export default function SearchBar() {
-    const {setSearchTerm, searchTerm, location} = useGlobalContext()
+    const {setSearchTerm} = useGlobalContext()
     const searchValue = React.useRef('')
 
     React.useEffect(()=>{
@@ -23,14 +23,11 @@ export default function SearchBar() {
         <section className="searchbar">
             <form onSubmit={handleSubmit}>
                 <div className="search">
-                    {/* <label htmlFor="name">search</label> */}
                     <input 
                         type="text" 
                         placeholder="  Enter a Location Name"
-                        // name='name'
                         id='name'
                         ref={searchValue}
-                        // onChange={searchPlace}
                     />
                     <button className="searchbtn" onClick={searchPlace}>Search</button>
                 </div>

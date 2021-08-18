@@ -1,26 +1,62 @@
-import React from 'react'
-import {useParams, Link} from 'react-router-dom'
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { useGlobalContext } from "./context";
 
-export default function SinglePhoto({name,imageURL,lng,lat}){
-    const {newID} = useParams()
+export default function SinglePhoto(){
+    const [image, setImage] = React.useState({})
+    const {location,temp} = useGlobalContext()
+    var {id} = useParams()
+    
+    React.useEffect(() =>{
+        function getImages() {
+            if(location){
+                const{
+                    name,
+                    population,
+                    lng,
+                    lat,
+                    imageURL,
+                // eslint-disable-next-line eqeqeq
+                } = location.find(obj=>{ return obj.id == id})
+                const newImages = {
+                    name,
+                    population,
+                    lng,
+                    lat,
+                    imageURL,
+                }
+                setImage(newImages)
+            } else {
+                setImage(null)
+            }
+        }
+        getImages()
+    }, [id,location])
 
-    return(
-        <div>
-            <div className="phototab">
-                <div className="single-image">
-                    IMAGE
+    if(!image){
+        return <h1>No Photo to Display</h1>
+    } else{
+        const{
+            name,
+            imageURL,
+            population,
+            lng,
+            lat
+        } = image
+        return (
+            <section className="sections">
+                <Link to={"/"} className="backlogo">- Places -</Link>
+                <div className="singleimage">
+                    <img className="simg" src={imageURL} alt={name} />
                 </div>
-                <Link to="/" className="btn">
-                    back
-                </Link>
-            </div>
-            <div className="infos">
-                <h2>Name:{name} </h2>
-                <h4>Pop: </h4>
-                <h4>Temp:  </h4>
-                <h4>Lat: </h4>
-                <h4>Lng: </h4>
-            </div>
-        </div>
-    )
+                <div className="singleinfo">
+                    <h1>{name}</h1>
+                    <h3>Population  <span>{population}</span></h3>
+                    <h3>Temperature  <span>{temp} °C</span></h3>
+                    <h3>Lat  <span>{lat}</span></h3>
+                    <h3>Lng  <span>{lng}</span></h3>
+                </div>
+            </section>
+        )
+    }
 }

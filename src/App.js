@@ -1,10 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
-// import { useFetch } from './useFetch';
 import SearchBar from './SearchBar';
-import SinglePhoto from './SinglePhoto'
 import PhotoList from './PhotoList';
-import GetPhotos from './GetPhotos';
+import SinglePhoto from './SinglePhoto';
 
 
 function App() {
@@ -17,8 +15,7 @@ function App() {
             <PhotoList/>
           </Route>
           <Route path="/photo/:id">
-            <GetPhotos/>
-            {/* <SinglePhoto/> */}
+            <SinglePhoto/>
           </Route>
         </Switch>
       </section>
