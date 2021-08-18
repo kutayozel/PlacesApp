@@ -2,7 +2,7 @@ import React, {useState, useContext, useEffect} from 'react'
 import { useCallback } from 'react'
 
 const urlPix = 'https://pixabay.com/api/?key=22675015-65668441eb8a404353873b15e&image_type=photo&per_page=100&q='
-const url = 'http://api.geonames.org/searchJSON?maxRows=100&username=kutayozel&q='
+const url = 'http://secure.geonames.org/searchJSON?maxRows=100&username=kutayozel&q='
 const urlWeather = 'https://api.openweathermap.org/data/2.5/weather?units=metric&appid=870b95f2bb8683ce42ac8b331664622b&q='
 const AppContext = React.createContext()
 
