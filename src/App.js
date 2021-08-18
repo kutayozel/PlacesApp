@@ -3,12 +3,12 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import SearchBar from './SearchBar';
 import PhotoList from './PhotoList';
 import SinglePhoto from './SinglePhoto';
+import Error from './Error'
 
 
 function App() {
   return (
     <Router>
-      <section className="App">
         <Switch>
           <Route exact path="/">
             <SearchBar/>
@@ -17,8 +17,10 @@ function App() {
           <Route path="/photo/:id">
             <SinglePhoto/>
           </Route>
+          <Route path="*">
+            <Error/>
+          </Route>
         </Switch>
-      </section>
     </Router> 
   );
 }

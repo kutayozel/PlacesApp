@@ -1,16 +1,18 @@
 * {
   margin: 0px;
   padding: 0px;
+  text-align: center;
 }
 
 body {
-  background: rgb(238, 174, 202);
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  /* background: rgb(238, 174, 202);
   background: radial-gradient(
     circle,
     rgba(238, 174, 202, 1) 0%,
     rgba(148, 187, 233, 1) 100%
   );
-  background-repeat: inherit;
+  background-repeat: inherit; */
 }
 
 code {
@@ -22,10 +24,9 @@ a {
   text-decoration: none;
 }
 
-.App {
-  /* background: chartreuse; */
+/* .App {
   text-align: center;
-}
+} */
 
 /*Image List*/
 
@@ -37,11 +38,11 @@ a {
 }
 
 .image-list {
-  margin-right: 4vw;
-  margin-left: 4vw;
+  margin-right: 3vw;
+  margin-left: 3vw;
   justify-content: space-between;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 350px;
   margin-bottom: 6vw;
 }
 
@@ -53,6 +54,11 @@ a {
 .image img {
   height: 100%;
   width: 100%;
+  border-radius: 25px;
+}
+
+.image h2 {
+  color: black;
 }
 
 /* Single Item */
@@ -64,14 +70,12 @@ a {
 .backlogo {
   position: absolute;
   left: 6%;
-  color: rgb(21, 17, 65);
+  color: black;
   font-size: 50px;
   font-style: italic;
   font-weight: 700;
   font-variant: small-caps;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  border-style: none;
-  border-color: black;
 }
 
 .singleimage {
